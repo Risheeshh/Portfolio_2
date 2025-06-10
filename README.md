@@ -1,39 +1,22 @@
-# 🌐 Website Repository: Randomize()
+# 💼 Portfolio Website
 
-## 📝 Overview
-This repository hosts the Randomize(); Website, currently in development using React and Tailwind CSS.
+This is my personal portfolio website built using **React** and **Tailwind CSS**, designed to showcase my projects, skills, and contact information.
 
-## 🚀 Getting Started
-To begin working with this repository, clone it to your local system and execute `npm install` in the terminal to install all the necessary project dependencies.
+🚀 **Live Site**: [https://portfolio-ten-mocha-15.vercel.app/](https://portfolio-ten-mocha-15.vercel.app/)
 
-## 📑 Website Sections
-- **🏠 Home**
-- **👥 Teams**
-    - Executive, Core & Working
-    - Project Teams
-- **📅 Events**
-- **🛠️ Projects**
-- **🎓 Alumni**
+---
 
-## ✨ Best Practices
-### 1. 🧩 Modular Components
-- **Single Responsibility**: Keep components focused for maintainability.
-- **🔄 Reusable Design**: Create components for easy reusability.
+## 🛠️ Tech Stack
 
-### 2. 🎨 Efficient Styling
-- **Utility-First Approach**: Swiftly style with Tailwind's utility-first approach.
-- **🛠️ Customization**: Tailor styles for a consistent design system.
+- **Frontend**: React, Tailwind CSS
+- **Hosting**: Vercel
 
-### 3. ⚡ Performance Optimization
-- **🖼️ Image Optimization**: Serve optimized images for faster load times.
+---
 
-### 4. 🚨 Error Handling & Testing
-- **Error Boundaries**: Handle errors gracefully with React's error boundaries.
+## 📦 Installation
 
-### 5. 🧹 Code Quality
-- **Linting & Formatting**: Maintain code consistency using ESLint & Prettier.
-- **🔍 Code Reviews**: Collaborate for better code quality.
-
-### 6. 📚 Documentation
-- **Component Docs**: Document components for future reference.
-- **✍️ Comments**: Use comments for clearer code understanding.
+```bash
+git clone https://github.com/yourusername/portfolio-site.git
+cd website
+npm install
+npm run dev
