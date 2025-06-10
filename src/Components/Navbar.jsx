@@ -1,187 +1,111 @@
-import { useState, useEffect } from "react";
-import { HashLink } from "react-router-hash-link";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [top, setTop] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    const scrollHandler = () => {
-      setTop(window.pageYOffset <= 20);
-
-      if (window.scrollY >= 20) {
-        setTop(true);
-      } else {
-        setTop(false);
-      }
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener("scroll", scrollHandler);
-
-    scrollHandler();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navactive =
-    "fixed top-0 left-0 right-0 z-50 bg-black text-white font-sans sm:px-4 sm:py-3 md:px-4 md:py-6 p-5 opacity-100 backdrop-blur bg-transparent shadow-md border-b border-gray-900 ";
-
-  const nav =
-    " fixed top-0 left-0 right-0 z-50 text-white font-sans sm:px-4 sm:py-3 md:px-4 md:py-6 p-5  bg-black backdrop-blur bg-transparent shadow-md border-b border-gray-900 ";
-
-  // fixed top-0 left-0 right-0 z-10 bg-black text-white font-sans px-4 py-4 md:px-6 md:py-6 backdrop-filter backdrop-blur-3xl opacity-80
+  const navLinks = [
+    { path: '/', label: 'Home' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/experience', label: 'Experience' },
+    { path: '/contact', label: 'Contact' },
+  ];
 
   return (
-    <>
-      <nav className={top ? nav : navactive}>
-        <div className="flex items-center justify-between ">
-          <div className="flex items-center">
-            <ul>
-              <li>
-                <a href="/" className="flex items-center space-x-1">
-                  <img
-                    className="h-8 mr-3"
-                    src="https://ucarecdn.com/20a00067-b313-4a73-b536-c7dedf5bc78c/-/preview/"
-                    alt="Randomize"
-                  />
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="hidden lg:block">
-            <Link
-              to="/"
-              className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-xl"
-            >
-              Home
-            </Link>
-            <span className="px-1.5"></span>
-            {/* <a
-              href="#our-projects"
-              className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-xl"
-            >
-              Projects
-            </a> */}
-
-            <Link
-              to="/projects"
-              className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-xl"
-            >
-              Projects
-            </Link>
-            <Link
-              to="/events"
-              className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-xl"
-            >
-              Events
-            </Link>
-            <Link
-              to="/gallery"
-              className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-xl"
-            >
-              Gallery
-            </Link>
-            {/* <Link
-              to="/thefest"
-              className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-xl"
-            >
-              The Fest
-            </Link> */}
-
-            <Link
-              to="/hackathon"
-              className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-xl"
-            >
-              Hackathon
-            </Link>
-            <Link
-              to="/teams"
-              className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-xl"
-            >
-              Team
-            </Link>
-
-            {/* <a href="/resources" className="text-white hover:text-gray-300 px-3 py-2 rounded-md">
-                Resources
-              </a> */}
-          </div>
-          <button
-            type="button"
-            className="lg:hidden text-white hover:text-gray-300"
-            onClick={() => setShowMobileMenu(!showMobileMenu)}
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-bg-primary/80 backdrop-blur-md shadow-lg' 
+          : 'bg-bg-primary/30 backdrop-blur-sm'
+      }`}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-20">
+          <Link 
+            to="/" 
+            className="text-2xl font-bold bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent hover:opacity-80 transition-opacity"
           >
-            <svg
-              className="h-6 w-6"
-              stroke="currentColor"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
+            Rishi Singh
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`relative text-sm font-medium transition-colors group ${
+                  location.pathname === link.path
+                    ? 'text-accent-primary'
+                    : 'text-text-secondary hover:text-accent-primary'
+                }`}
+              >
+                {link.label}
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-primary transition-all duration-300 group-hover:w-full ${
+                  location.pathname === link.path ? 'w-full' : ''
+                }`} />
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Navigation Button */}
+          <button
+            className="md:hidden text-text-secondary hover:text-accent-primary focus:outline-none transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
         </div>
-        <div
-          className={`lg:hidden opacity-100 backdrop-blur-none bg-black	 ${showMobileMenu ? "" : "hidden"}`}
-        >
-          <div className=" pt-2 pb-3 space-y-1">
-            <span className="px-1.5"></span>
-            <a
-              href="/"
-              className="block text-white hover:text-gray-300 px-3 py-2 rounded-md"
-            >
-              Home
-            </a>
 
-            <a
-              href="/projects"
-              className="block text-white hover:text-gray-300 px-3 py-2 rounded-md"
+        {/* Mobile Navigation Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden"
             >
-              Projects
-            </a>
-            <a
-              href="/events"
-              className="block text-white hover:text-gray-300 px-3 py-2 rounded-md"
-            >
-              Events
-            </a>
-            <a
-              href="/gallery"
-              className="block text-white hover:text-gray-300 px-3 py-2 rounded-md"
-            >
-              Gallery
-            </a>
-            {/* <a
-              href="/thefest"
-              className="block text-white hover:text-gray-300 px-3 py-2 rounded-md"
-            >
-              The Fest
-            </a> */}
-            <a
-              href="/hackathon"
-              className="block text-white hover:text-gray-300 px-3 py-2 rounded-md"
-            >
-              Hackathon
-            </a>
-
-            <a
-              href="/teams"
-              className="block text-white hover:text-gray-300 px-3 py-2 rounded-md"
-            >
-              Teams
-            </a>
-
-            {/*<a href="/resources" className="block text-white hover:text-gray-300 px-3 py-2 rounded-md">*/}
-            {/*  Resources*/}
-            {/*</a>*/}
-          </div>
-        </div>
-      </nav>
-    </>
+              <div className="py-4 space-y-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`block text-sm font-medium transition-colors ${
+                      location.pathname === link.path
+                        ? 'text-accent-primary'
+                        : 'text-text-secondary hover:text-accent-primary'
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.nav>
   );
 };
 
-export default Navbar;
+export default Navbar; 

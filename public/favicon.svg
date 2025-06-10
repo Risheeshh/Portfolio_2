@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="16" cy="16" r="16" fill="#0F172A"/>
+  
+  <!-- Letter R -->
+  <path d="M10 8h8c2.2 0 4 1.8 4 4 0 1.5-.8 2.8-2 3.5l3 4.5h-3l-3-4.5h-2v4.5h-3V8zm8 5c.6 0 1-.4 1-1s-.4-1-1-1h-5v2h5z" 
+        fill="#38BDF8"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="22" cy="22" r="2" fill="#38BDF8" opacity="0.5"/>
+  <circle cx="10" cy="22" r="1.5" fill="#38BDF8" opacity="0.3"/>
+</svg> 
